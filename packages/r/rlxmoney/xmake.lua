@@ -1,10 +1,4 @@
 package("rlxmoney")
-    -- ============================================================================
-    -- 版本管理：发布新版本时，只需更新这里的版本列表
-    -- ============================================================================
-    local supported_versions = {"1.0.1"}
-    local default_version = supported_versions[#supported_versions]  -- 自动使用列表中的最新版本
-    
     -- 设置包的基本信息
     set_homepage("https://github.com/carefly/RLXMoney")
     set_description("A comprehensive money management plugin for Minecraft based on LeviLamina")
@@ -62,9 +56,7 @@ package("rlxmoney")
 
     -- 安装函数
     on_install("windows", function(package)
-        -- 根据版本和配置下载对应的包
-        -- 注意：default_version 在上方定义，发布新版本时记得更新 supported_versions
-        local version = package:version() and package:version():rawstr() or default_version
+        local version = package:version() and package:version():rawstr() or "1.0.1"
         local config = package:config("shared") and "shared" or "static"
         local arch = package:is_arch("x64") and "x64" or "arm64"
         local debug_suffix = package:config("debug") and "-debug" or ""
