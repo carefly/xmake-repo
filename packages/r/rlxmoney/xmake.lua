@@ -4,13 +4,6 @@ package("rlxmoney")
     set_description("A comprehensive money management plugin for Minecraft based on LeviLamina")
     set_license("MIT")
 
-    -- 分类
-    set_categories("plugin", "minecraft", "levilamina", "economy")
-
-    -- 支持的平台
-    set_allowed_plats("windows")
-    set_allowed_archs("x64", "arm64")
-
     -- 包配置选项
     add_configs("shared", {description = "Use shared library (DLL) instead of static library", default = true, type = "boolean"})
     add_configs("runtime", {description = "Link runtime statically", default = false, type = "boolean"})
@@ -56,7 +49,8 @@ package("rlxmoney")
 
     -- 安装函数
     on_install("windows", function(package)
-        local version = package:version() and package:version():rawstr() or "1.0.1"
+        local version_obj = package:version()
+        local version = version_obj and version_obj:rawstr() or "1.0.1"
         local config = package:config("shared") and "shared" or "static"
         local arch = package:is_arch("x64") and "x64" or "arm64"
         local debug_suffix = package:config("debug") and "-debug" or ""
