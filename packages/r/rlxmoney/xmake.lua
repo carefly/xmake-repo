@@ -10,9 +10,6 @@ package("rlxmoney")
     set_description("A comprehensive money management plugin for Minecraft based on LeviLamina")
     set_license("MIT")
 
-    -- 支持的版本（从版本列表自动设置）
-    set_versions(table.unpack(supported_versions))
-
     -- 分类
     set_categories("plugin", "minecraft", "levilamina", "economy")
 
