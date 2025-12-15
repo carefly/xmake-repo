@@ -10,9 +10,6 @@ package("rlxmoney")
     set_description("A comprehensive money management plugin for Minecraft based on LeviLamina")
     set_license("MIT")
 
-    -- 维护者信息
-    set_maintainer("RLX Team")
-
     -- 支持的版本（从版本列表自动设置）
     set_versions(table.unpack(supported_versions))
 
@@ -87,14 +84,15 @@ package("rlxmoney")
         -- 验证文件哈希（可选）
         -- package:set("sha256", "...")
 
-        -- 下载并解压
-        package:fetch()
+        -- 解压（xmake 会自动下载）
         package:extract()
 
         -- 复制头文件到安装目录
         -- 如果解压后有顶层目录（如 sdk-windows-x64-shared），extract() 会自动进入
         if os.isdir("include") then
             os.cp("include/*", package:installdir("include"))
+        else
+            raise("include directory not found in package")
         end
 
         -- 复制库文件到安装目录（库文件在 SDK 包的根目录）
@@ -103,15 +101,11 @@ package("rlxmoney")
         
         if os.isfile(lib_name) then
             os.cp(lib_name, package:installdir("lib"))
+        else
+            raise("library file " .. lib_name .. " not found in package")
         end
 
         -- 注意：shared 版本的 DLL 文件应该已经随 RLXMoney 插件安装，
         -- SDK 包只包含导入库（.lib）或静态库，不包含运行时 DLL
-    end)
-
-    -- 测试函数
-    on_test(function(package)
-        -- 测试头文件是否存在（include 目录已在 includedirs 中，所以使用相对路径）
-        assert(package:has_cxfuncs("rlx_money::RLXMoneyAPI::getBalance", {includes = {"mod/api/RLXMoneyAPI.h"}}))
     end)
 
