@@ -67,8 +67,7 @@ package("rlxmoney")
         -- 验证文件哈希（可选）
         -- package:set("sha256", "...")
 
-        -- 解压（xmake 会自动下载）
-        package:extract()
+        -- xmake 会自动下载并解压文件到当前工作目录
 
         -- 复制头文件到安装目录
         if os.isdir("include") then
